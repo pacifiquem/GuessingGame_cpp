@@ -10,7 +10,6 @@ void categoryLogger() {
 	}
 }
 
-
 //function for printing output;
 void wordPrinter(vector <char> arr) {
 	for(int i=0; i<arr.size(); i++) {
@@ -45,16 +44,19 @@ bool checkWin(vector<char> usersGuess, vector<char> computerGuess) {
 	}
 }
 
+//guessing handler
 void guessFunction(string stringToGuess, int randomNumber) {
 		vector<char> wordToBeGuessed(stringToGuess.begin(), stringToGuess.end());
 		vector<char> usersGuesses = usersGuessInitializer(wordToBeGuessed.size());
+		cout <<endl<<"Word Placeholder : ";
 		wordPrinter(usersGuesses);
+		int chance = wordToBeGuessed.size()*2;
+		cout << endl <<"Chances : " << chance <<endl;
 		char usersChar;
 		
 		int j=0;
 		while(j < wordToBeGuessed.size()*2) {
-			
-			cout << endl <<"Enter character : ";
+			cout << endl <<endl <<"Enter character : ";
 			cin >> usersChar;
 		
 			for(int i=0; i<wordToBeGuessed.size(); i++) {
@@ -65,9 +67,11 @@ void guessFunction(string stringToGuess, int randomNumber) {
 				}
 			}
 			
+			cout << "Placeholder : ";
 			wordPrinter(usersGuesses);
+			cout <<endl << "Chance Left : " << chance-1 <<endl;
 			
-			if(j==randomNumber || j>randomNumber) {
+			if(j+1 >=wordToBeGuessed.size()) {
 				bool passed = checkWin( usersGuesses , wordToBeGuessed );
 				if(passed) {
 					cout <<endl <<endl << " =========== You've won ======== " <<endl <<endl;
@@ -78,6 +82,8 @@ void guessFunction(string stringToGuess, int randomNumber) {
 			if(j+1 == wordToBeGuessed.size()*2) {
 				cout <<endl << " You've failed " <<endl;
 			} 
+			
+			chance--;
 			j++;
 		}	
 }
@@ -86,15 +92,15 @@ void guessFunction(string stringToGuess, int randomNumber) {
 int main(){
 	
 	string wantToContinue;
-	int randomNumber =  1 + (rand() % 8);
-	vector<string> animalNames = { "hen", "goat", "cow", "cat", "dog", "pigeon", "duck", "sheep" };
-	vector<string> teamsNames = { "barcelona", "chelsea", "liverpool", "mukura", "apr", "marine", "simba", "alahir" };	
-	vector<string> booksNames = { "theveda", "bakameedition", "harrypotter", "palicanon", "quran", "iread", "ichoose", "bible" };
-	vector<string> districtsNames = { "nyabihu", "nyamagabe", "gisagara", "huye", "gasabo", "gakenke", "nyaruguru", "rutsiro" };
-	vector<string> filmsNames = { "blackadam", "jumong", "monster", "brightside", "oneinacity", "jamesbond", "skyscrapper", "memoriesinuniverse" };
+	srand(time(NULL));
+	int randomNumber = rand() % (9 - 0) + 0;
+	vector<string> animalNames = { "hen", "goat", "cow", "cat", "dog", "pigeon", "duck", "sheep", "elephant", "lion" };
+	vector<string> teamsNames = { "barcelona", "chelsea", "liverpool", "mukura", "apr", "marine", "simba", "alahir", "everton", "arsenal"};	
+	vector<string> booksNames = { "theveda", "bakameedition", "harrypotter", "palicanon", "quran", "iread", "ichoose", "bible", "LordoftheRings", "Alchemist" };
+	vector<string> districtsNames = { "nyabihu", "nyamagabe", "gisagara", "huye", "gasabo", "gakenke", "nyaruguru", "rutsiro", "nyamasheke", "nyagatare" };
+	vector<string> filmsNames = { "blackadam", "jumong", "monster", "brightside", "oneinacity", "jamesbond", "skyscrapper", "memoriesinuniverse", "inmystyle", "idontholdback" };
 	
 	do {
-		
 		int category;
 		categoryLogger();
 		cout << endl <<"Enter category number : ";
@@ -118,11 +124,11 @@ int main(){
 				break;
 			default:
 			cout << " Invalid guessing category " <<endl;
+			exit(0);
 		}
 		
 		cout << "Do You wan't to continue (y/n) : ";
 		cin >> wantToContinue;		
-		cout << wantToContinue <<endl;
 	
 	}while(wantToContinue == "y");
 	
